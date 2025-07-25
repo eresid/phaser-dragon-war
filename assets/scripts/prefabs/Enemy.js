@@ -1,0 +1,31 @@
+class Enemy extends DynamicObject {
+  static generateAttributes() {
+    const x = config.width + 200;
+    const y = Phaser.Math.Between(100, config.height - 100);
+    return { x, y, frame: `enemy${Phaser.Math.Between(1, 4)}` };
+  }
+
+  static spawn(scene) {
+    const data = Enemy.generateAttributes();
+
+    return new Enemy({
+      scene,
+      x: data.x,
+      y: data.y,
+      texture: "enemy",
+      frame: data.frame,
+      velocity: -500,
+    });
+  }
+
+  reset() {
+    const attributes = Enemy.generateAttributes();
+    super.reset(attributes.x, attributes.y);
+
+    this.setFrame(attributes.frame);
+  }
+
+  isDead() {
+    return this.x < -this.width;
+  }
+}
