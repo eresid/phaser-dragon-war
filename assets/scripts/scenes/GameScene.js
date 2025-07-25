@@ -9,6 +9,9 @@ class GameScene extends Phaser.Scene {
 
   create() {
     this.createBackground();
+    if (!this.sounds) {
+      this.createSounds();
+    }
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.player = new Player(this);
@@ -44,6 +47,7 @@ class GameScene extends Phaser.Scene {
 
       const enemy = [source, target].find((item) => item.texture.key === "enemy");
       Explosion.spawn(this, enemy.x, enemy.y);
+      this.sounds.explosion.play();
     }
 
     source.setAlive(false);
@@ -64,5 +68,14 @@ class GameScene extends Phaser.Scene {
 
   createBackground() {
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "bg").setOrigin(0);
+  }
+
+  createSounds() {
+    this.sounds = {
+      explosion: this.sound.add("explosion", { volume: 0.1 }),
+      theme: this.sound.add("theme", { volume: 0.2, loop: true }),
+    };
+
+    this.sounds.theme.play();
   }
 }
