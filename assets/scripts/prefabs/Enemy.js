@@ -5,11 +5,12 @@ class Enemy extends DynamicObject {
     return { x, y, frame: `enemy${Phaser.Math.Between(1, 4)}` };
   }
 
-  static spawn(scene) {
+  static spawn(scene, fires) {
     const data = Enemy.generateAttributes();
 
     return new Enemy({
       scene,
+      fires,
       x: data.x,
       y: data.y,
       texture: "enemy",
@@ -23,7 +24,8 @@ class Enemy extends DynamicObject {
   init(data) {
     super.init(data);
     this.setOrigin(data.origin.x, data.origin.y);
-    this.fires = new Fires(this.scene);
+    // data.fires = for enemies, new Fires = for player
+    this.fires = data.fires || new Fires(this.scene);
 
     this.timer = this.scene.time.addEvent({
       delay: data.bullet.delay,
