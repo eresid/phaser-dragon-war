@@ -14,8 +14,27 @@ class Enemy extends DynamicObject {
       y: data.y,
       texture: "enemy",
       frame: data.frame,
-      velocity: -500,
+      velocity: -250,
+      bullet: { delay: 1000, texture: "bullet", velocity: -500 },
+      origin: { x: 0, y: 0.5 },
     });
+  }
+
+  init(data) {
+    super.init(data);
+    this.setOrigin(data.origin.x, data.origin.y);
+    this.fires = new Fires(this.scene);
+
+    this.timer = this.scene.time.addEvent({
+      delay: data.bullet.delay,
+      loop: true,
+      callback: this.fire,
+      callbackScope: this,
+    });
+  }
+
+  fire() {
+    this.fires.createFire(this);
   }
 
   reset() {

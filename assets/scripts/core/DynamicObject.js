@@ -9,6 +9,7 @@ class DynamicObject extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
     this.body.enable = true;
     this.velocity = data.velocity;
+    this.bullet = data.bullet;
 
     this.scene.events.on("update", this.update, this);
   }
@@ -34,6 +35,10 @@ class DynamicObject extends Phaser.GameObjects.Sprite {
 
     // activate or deactivate object
     this.setActive(status);
+
+    if (this.timer) {
+      this.timer.paused = !status;
+    }
   }
 
   isDead() {
