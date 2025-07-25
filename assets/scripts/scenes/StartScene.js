@@ -16,7 +16,7 @@ class StartScene extends Phaser.Scene {
 
   createText() {
     this.add
-      .text(config.width / 2, 300, "Tap to Start", {
+      .text(config.width / 2, 500, "Tap to Start", {
         font: "40px CurseCasual",
         fill: "#ffffff",
       })

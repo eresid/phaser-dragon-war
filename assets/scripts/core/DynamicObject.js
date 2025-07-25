@@ -39,6 +39,10 @@ class DynamicObject extends Phaser.GameObjects.Sprite {
     if (this.timer) {
       this.timer.paused = !status;
     }
+
+    if (!status) {
+      this.emit("killed");
+    }
   }
 
   isDead() {
