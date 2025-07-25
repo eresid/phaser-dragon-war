@@ -41,6 +41,9 @@ class GameScene extends Phaser.Scene {
     if (source !== this.player && target !== this.player) {
       ++this.score;
       this.scoreText.setText(`Score: ${this.score}`);
+
+      const enemy = [source, target].find((item) => item.texture.key === "enemy");
+      Explosion.spawn(this, enemy.x, enemy.y);
     }
 
     source.setAlive(false);

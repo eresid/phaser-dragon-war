@@ -11,18 +11,20 @@ class Player extends Enemy {
       origin: { x: 1, y: 0.5 },
     });
 
-    const frames = scene.anims.generateFrameNames("dragon", {
-      prefix: "dragon",
-      start: 1,
-      end: 6,
-    });
+    if (!this.scene.anims.exists("dragonFlyAnim")) {
+      const frames = scene.anims.generateFrameNames("dragon", {
+        prefix: "dragon",
+        start: 1,
+        end: 6,
+      });
 
-    scene.anims.create({
-      key: "dragonFlyAnim",
-      frames,
-      frameRate: 10,
-      repeat: -1,
-    });
+      scene.anims.create({
+        key: "dragonFlyAnim",
+        frames,
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
 
     this.play("dragonFlyAnim");
   }
